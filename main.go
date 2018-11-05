@@ -9,18 +9,10 @@ import (
 	"regexp"
 )
 
-/*-------------------------------------*/
-//				  TODO:				   //
-// 								       //
-//recurse through the websites grabbed //
-//add to github						   //
-//									   //
-/*-------------------------------------*/
-
 //dataMap here is to help remove duplicates
 var m map[string]int
 
-/*getData scrapes given url, matches to a regex and puts answers within a textfile*/
+/*getData scrapes given url, matches to a regex and puts answers within a map*/
 func getData(url string, dataMap map[string]int) int {
 	resp, err := http.Get(url)
 	if err != nil {
@@ -67,7 +59,6 @@ func main() {
 
 	for i := 0; i < 3; i++ {
 		for key := range m {
-			//fmt.Println(key)
 			getData(key, m)
 		}
 	}
@@ -77,7 +68,6 @@ func main() {
 		panic(err)
 	}
 	for key := range m {
-		//fmt.Println("site: ", key, "times: ", value)
 		file.WriteString("\n" + key + "\n")
 	}
 	file.Close()
